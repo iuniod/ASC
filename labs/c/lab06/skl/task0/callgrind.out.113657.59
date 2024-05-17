@@ -1,0 +1,98 @@
+# callgrind format
+version: 1
+creator: callgrind-3.18.1
+pid: 113657
+cmd:  ./task0
+part: 59
+
+
+desc: I1 cache: 
+desc: D1 cache: 
+desc: LL cache: 
+
+desc: Timerange: Basic block 590557274 - 600756763
+desc: Trigger: --dump-every-bb=10000000
+
+positions: line
+events: Ir
+summary: 71400296
+
+
+ob=(5) /home/iustina/uni/asc/labs/c/lab06/skl/task0/task0
+fl=(150) ???
+fn=(508) (below main)
+cob=(3) /usr/lib/x86_64-linux-gnu/libc.so.6
+cfi=(151) ./csu/../csu/libc-start.c
+cfn=(510) __libc_start_main@@GLIBC_2.34
+calls=0 242 
+0 71400296
+
+fl=(157) /home/iustina/uni/asc/labs/c/lab06/skl/task0/task0.c
+fn=(546) ShowProgress
+27 3072
++1 512
++3 1536
++1 6656
++2 8704
++3 1536
+
+fn=(540) main
+cfn=(542) FindPrimes
+calls=0 39 
+58 71400296
+
+fn=(542)
+46 1536
+cfn=(544) TestForPrime
+calls=512 -31 
+* 71370320
+* 1024
++3 528
++1 264
++2 440
+cfn=(546)
+calls=88 -25 
+* 3784
+* 2120
+cfn=(546)
+calls=424 -25 
+* 18232
+-7 2048
+
+fn=(544)
+15 2048
++1 512
++1 1024
++2 30584640
++1 424
++1 424
+-4 40779712
++7 512
++1 1024
+
+ob=(1) /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+fl=(1) ???
+fn=(0) 0x0000000000020290
+cob=(5)
+cfi=(150)
+cfn=(508)
+calls=0 0 
+0 71400296
+
+ob=(3)
+fl=(153) ./csu/../sysdeps/nptl/libc_start_call_main.h
+fn=(532) (below main)
+cob=(5)
+cfi=(157)
+cfn=(540)
+calls=0 56 
+58 71400296
+
+fl=(151)
+fn=(510)
+cfi=(153)
+cfn=(532)
+calls=0 29 
+392 71400296
+
+totals: 71400296
