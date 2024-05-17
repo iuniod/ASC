@@ -1,0 +1,10 @@
+Nume: Iustina-Andreea Cărămidă
+Grupă: 332CA
+
+# Tema 2 - Cuda proof of Work
+
+* Am ales sa folosesc o variabila care sa poata fi accesata din interiorul kernelului de fiecare thread, pentru a putea verifica daca s-a gasit solutia. Aceasta variabila este de tip `bool` si se numeste `globalFound`. Aceasta variabila este initializata cu `false` si este setata pe `true` in momentul in care s-a gasit solutia.
+
+* In functia `findNonce()` verific atat la inceput cat si inainte de a modifica nonce-ul. La inceput verific pentru a nu mai face calcule puternice computational in conditiile in care deja s-a gasit un nonce, iar pe noi nu ne intereseaza cel mai bun, ci doar unul care sa se potriveasca. Inainte de modificarea nonce-ului mai verific o data, pentru a scapa de efectul de race condition: pot 2 threaduri sa treaca de prima verificare, cel rapid sa gaseasca un nonce buna, iar al doilea cand a gasit si el unul bun, sa nu mai stea sa il suprascrie.
+
+* Folosesc functiile `atomicOr()` si `atomicExch()` pentru a modifica variabilele globalFound si d_nonce in mod atomic.
