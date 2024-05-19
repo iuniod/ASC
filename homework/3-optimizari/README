@@ -1,0 +1,91 @@
+Tema 3 ASC - Iustina-Andreea Caramida, 332CA
+
+1. Varianta BLAS ---------------------------------------------------------------
+
+Am copiat matricea B in matricea C, apoi am apelat functia `dtrmm` pentru a
+salva in matricea C operatia A^T * B. Am specificat optiunile CblasUpper si
+CblasTrans pentru a semnala functiei ca matricea A e superior triunghiulara si
+trebuie sa faca inmultirea cu transpusa lui A.
+
+Asadar, C = A^T * B;
+
+In continuare am copiat in matricea D matricea B si mai aplicat o data functia
+`dtrmm`, de data aceasta cu optiunea CblasUpper si in loc de CblasTrans am
+folosit CblasNoTrans, pentru a semnala functiei ca matricea A e superior
+triunghiulara si trebuie sa faca inmultirea cu A, nu cu inversa ei ca mai sus.
+
+Asadar, D = B * A;
+
+Am adunat matricele C si D, rezultatul fiind matricea C, folosind functia
+`daxpy`.
+
+Astfel, C = A^T * B + B * A.
+
+Ultimul pas de calcul a fost sa inmultesc matricea C cu transpusa lui B,
+rezultatul	fiind matricea D, folosind functia `dgemm`.
+
+In final, D = (A^T * B + B * A) * B^T, chiar cum cere enuntul.
+
+In plus, am folosit flag-uri de tipul CblasLeft si CblasRight pentru a indica
+ordinea inmultirii matricelor, precum si CblasRowMajor pentru a indica ordinea
+in care sunt stocate datele in memorie.
+
+In final am eliberat memoria alocata pentru matricea C si am returnat matricea D.
+
+2. Varianta neopt --------------------------------------------------------------
+Am aplicat urmatorii pasi, folosind 3 for-uri pentru fiecare inmultire de
+matrice si 2 for-uri pentru fiecare adunare de matrice:
+    - C = A^T * B
+	- D = B * A
+	- C = C + D
+	- D = C * B^T
+
+Nu am folosit for-uri separate pentru a calcula transpusele matricelor, ci am
+accesat direct elementele matricelor in ordinea dorita. De asemenea, pentru
+operatiile de inmultire cu matricea A care este superior triunghiulara, am
+limitat numarul de operatii pentru a nu face inmultiri inutile: pentru toate
+elementele de sub diagonala principala, deoarece inmultirea cu 0 nu schimba
+rezultatul, nu am luat in calcul acele elemente.
+
+La final am eliberat memoria alocata pentru matricea C si am returnat matricea D.
+
+3. Varianta opt_m --------------------------------------------------------------
+Aceasta varianta urmareste exact aceeasi pasi matematici ca varianta
+neoptimizata, schimbarile provenind doar de la optimizari invatate in cadrul
+laboratorului 9.
+
+Urmatoarele optimizari au fost aplicate:
+    - Am facut toate variabilele de tip `register`, pentru a se translata in 
+	registrele procesorului.
+	- Am inlocuit accesarea directa a memoriei cu un registru in care se face
+    suma, apoi se transfera suma in memorie.
+    - Am redus pe cat posibil operatiile de calculare al index-ului la care se
+    afla datele prin inlocuirea adresarii directe cu pointeri care cresc
+    incremental.
+
+4. Explicatii Cachegrind (TODO)-------------------------------------------------------
+Statistica `I refs` se refera la numarul de instructiuni care s-au rulat pe
+procesor pe parcursul rularii programului.
+
+Statistica `D refs` se refera la numarul de accese de date care s-au facut
+pe parcursul rularii programului.
+
+Statistica `Branches` spune de cate ori au existat branch-uri in program, iar
+`Mispredicts` spune de cate ori nu s-a putut prezice branch-ul pe care a intrat
+programul.
+
+Diferentele observate de mine intre varianta optimizata si cea neoptimizata:
+    - Cea ne optimizata a rulat de 3 ori mai multe instructiuni. Optimizarea
+    provine din reducerea operatiilor pentru calcularea index-urilor folosind
+    pointeri.
+    - Cea neoptimizata a accesat de 7 ori mai multe date, dar a avut doar de 5 
+    ori mai multe miss-uri de date in L1. Optimizarea provine din mutarea
+    sumei intr-un registru
+
+5. Analiza grafic (TODO)--------------------------------------------------------------
+Dintre cele 3 implementari, varianta BLAS a fost cea mai rapida, urmata de
+varianta optimizata, apoi de cea neoptimizata.
+
+Varianta BLAS are panta foarte mica, asemanatoare cu o functie liniara.
+Varianta optimizata seamana cu o functie exponentiala cu o panta foarte mica,
+iar varianta neoptimizata seamana cu o functie exponentiala cu o panta mare.
