@@ -9,7 +9,6 @@
  */
 double* my_solver(int N, double *A, double* B) {
 	register int N2 = N * N;
-	int i, k;
 	double *C = (double*)malloc(N2 * sizeof(double));
 	double *D = (double*)malloc(N2 * sizeof(double));
 
@@ -17,11 +16,10 @@ double* my_solver(int N, double *A, double* B) {
 	register double *ptr_original_c = C;
 	for (register double *original_a = A; original_a < A + N; original_a++) {
 		register double *ptr_c = ptr_original_c;
-    	for (i = 0; i < N; i++) {
-			register double *pa = original_a;
-			register double *pb = B + i;
+		register int limit = (original_a - A) * N;
+    	for (register double *original_b = B; original_b < B + N; original_b++) {
             register double suma = 0;
-            for (k = 0; k <= (original_a - A); k++, pa += N, pb += N) {
+            for (register double *pa = original_a, *pb = original_b; (pa - original_a) <= limit; pa += N, pb += N) {
                 suma += *pa * *pb;
             }
             *ptr_c = suma;
@@ -35,11 +33,10 @@ double* my_solver(int N, double *A, double* B) {
 	register double *ptr_original_d = D;
 	for (register double *original_b = B; original_b < B + N2; original_b+=N) {
 		register double *ptr_d = ptr_original_d;
-		for (i = 0; i < N; i++) {
+		for (register double *original_a = A; original_a < A + N; original_a++) {
 			register double suma = 0;
-			register double *pb = original_b;
-			register double *pa = A + i;
-			for (k = 0; k <= i; k++, pb++, pa += N) {
+			register int limit = original_a - A;
+			for (register double *pa = original_a, *pb = original_b; (pb - original_b) <= limit; pb++, pa += N) {
 				suma += *pb * *pa;
 			}
 			*ptr_d = suma;
@@ -50,8 +47,7 @@ double* my_solver(int N, double *A, double* B) {
 	}
 
 	// Add C and D and store the result in C
-	register double *pd = D;
-	for (double *pc = C; (pc - C) < N2; pc++, pd++) {
+	for (register double *pc = C, *pd = D; (pc - C) < N2; pc++, pd++) {
 		*pc = *pc + *pd;
 	}
 
@@ -59,11 +55,9 @@ double* my_solver(int N, double *A, double* B) {
 	ptr_original_d = D;
     for (register double *original_c = C; original_c < C + N2; original_c += N) {
 		register double *ptr_d = ptr_original_d;
-        for (i = 0; i < N2; i += N) {
+        for (register double *original_b = B; original_b < B + N2; original_b += N) {
             register double suma = 0;
-            register double *pc = original_c;
-            register double *pb = B + i;
-            for (; (pc - original_c) < N; pc++, pb++) {
+            for (register double *pb = original_b, *pc = original_c; (pc - original_c) < N; pc++, pb++) {
                 suma += *pc * *pb;
             }
 			*ptr_d = suma;

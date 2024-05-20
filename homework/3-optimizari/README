@@ -82,7 +82,7 @@ Diferentele observate de mine intre varianta optimizata si cea neoptimizata:
     ori mai multe miss-uri de date in L1. Optimizarea provine din mutarea
     sumei intr-un registru
 
-5. Analiza grafic (TODO)--------------------------------------------------------------
+5. Analiza grafic --------------------------------------------------------------
 Dintre cele 3 implementari, varianta BLAS a fost cea mai rapida, urmata de
 varianta optimizata, apoi de cea neoptimizata.
 

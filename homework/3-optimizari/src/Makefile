@@ -19,4 +19,4 @@ compare: compare.c utils.h
 	$(CC) $(OPT_CFLAGS) $^ -lm -o $@
 
 clean:
-	rm -rf compare tema3_blas tema3_neopt tema3_opt_m out*
+	rm -rf compare tema3_blas tema3_neopt tema3_opt_m out1 out2 out3 slurm*

@@ -1,0 +1,3 @@
+Run=./tema3_neopt: N=400: Time=0.695718
+Run=./tema3_neopt: N=800: Time=5.549227
+Run=./tema3_neopt: N=1200: Time=18.283895
