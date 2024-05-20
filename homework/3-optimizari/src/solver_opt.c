@@ -17,11 +17,15 @@ double* my_solver(int N, double *A, double* B) {
 	for (register double *original_a = A; original_a < A + N; original_a++) {
 		register double *ptr_c = ptr_original_c;
 		register int limit = (original_a - A) * N;
+
     	for (register double *original_b = B; original_b < B + N; original_b++) {
             register double suma = 0;
-            for (register double *pa = original_a, *pb = original_b; (pa - original_a) <= limit; pa += N, pb += N) {
+
+            for (register double *pa = original_a, *pb = original_b;
+				 (pa - original_a) <= limit; pa += N, pb += N) {
                 suma += *pa * *pb;
             }
+
             *ptr_c = suma;
 			ptr_c++;
         }
@@ -33,12 +37,16 @@ double* my_solver(int N, double *A, double* B) {
 	register double *ptr_original_d = D;
 	for (register double *original_b = B; original_b < B + N2; original_b+=N) {
 		register double *ptr_d = ptr_original_d;
+
 		for (register double *original_a = A; original_a < A + N; original_a++) {
 			register double suma = 0;
 			register int limit = original_a - A;
-			for (register double *pa = original_a, *pb = original_b; (pb - original_b) <= limit; pb++, pa += N) {
+
+			for (register double *pa = original_a, *pb = original_b;
+				 (pb - original_b) <= limit; pb++, pa += N) {
 				suma += *pb * *pa;
 			}
+
 			*ptr_d = suma;
 			ptr_d++;
 		}
@@ -55,11 +63,15 @@ double* my_solver(int N, double *A, double* B) {
 	ptr_original_d = D;
     for (register double *original_c = C; original_c < C + N2; original_c += N) {
 		register double *ptr_d = ptr_original_d;
+
         for (register double *original_b = B; original_b < B + N2; original_b += N) {
             register double suma = 0;
-            for (register double *pb = original_b, *pc = original_c; (pc - original_c) < N; pc++, pb++) {
+
+            for (register double *pb = original_b, *pc = original_c;
+				 (pc - original_c) < N; pc++, pb++) {
                 suma += *pc * *pb;
             }
+
 			*ptr_d = suma;
 			ptr_d++;
         }

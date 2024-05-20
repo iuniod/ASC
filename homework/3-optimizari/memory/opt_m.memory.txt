@@ -1,0 +1,14 @@
+==3000254== Memcheck, a memory error detector
+==3000254== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==3000254== Using Valgrind-3.21.0 and LibVEX; rerun with -h for copyright info
+==3000254== Command: ./tema3_opt_m ../input/input_valgrind
+==3000254== 
+==3000254== 
+==3000254== HEAP SUMMARY:
+==3000254==     in use at exit: 0 bytes in 0 blocks
+==3000254==   total heap usage: 8 allocs, 8 frees, 5,136,980 bytes allocated
+==3000254== 
+==3000254== All heap blocks were freed -- no leaks are possible
+==3000254== 
+==3000254== For lists of detected and suppressed errors, rerun with: -s
+==3000254== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

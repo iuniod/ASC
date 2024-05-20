@@ -1,2 +1,2 @@
 #!/bin/bash
-./tema3_neopt ../input/input > output_neopt.txt
+./tema3_neopt ../input/input > ./output/output_neopt.txt
