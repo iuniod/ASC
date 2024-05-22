@@ -63,24 +63,25 @@ Urmatoarele optimizari au fost aplicate:
     afla datele prin inlocuirea adresarii directe cu pointeri care cresc
     incremental.
 
-4. Explicatii Cachegrind (TODO)-------------------------------------------------------
+4. Explicatii Cachegrind -------------------------------------------------------
 Statistica `I refs` se refera la numarul de instructiuni care s-au rulat pe
 procesor pe parcursul rularii programului.
 
 Statistica `D refs` se refera la numarul de accese de date care s-au facut
 pe parcursul rularii programului.
 
-Statistica `Branches` spune de cate ori au existat branch-uri in program, iar
-`Mispredicts` spune de cate ori nu s-a putut prezice branch-ul pe care a intrat
-programul.
+Statistica `Branches` spune de cate ori au existat branch-uri in program.
+
+Statistica `Mispredicts` spune de cate ori nu s-a putut prezice branch-ul pe
+care a intrat programul.
 
 Diferentele observate de mine intre varianta optimizata si cea neoptimizata:
-    - Cea ne optimizata a rulat de 3 ori mai multe instructiuni. Optimizarea
+    - Cea ne optimizata a rulat de 2 ori mai putine instructiuni. Optimizarea
     provine din reducerea operatiilor pentru calcularea index-urilor folosind
     pointeri.
-    - Cea neoptimizata a accesat de 7 ori mai multe date, dar a avut doar de 5 
-    ori mai multe miss-uri de date in L1. Optimizarea provine din mutarea
-    sumei intr-un registru
+    - Cea neoptimizata a accesat de 5 ori mai multe date, dar a avut un numar
+    destul de apropiat de miss-uri de date in L1. Optimizarea provine din mutarea
+    sumei intr-un registru.
 
 5. Analiza grafic --------------------------------------------------------------
 Dintre cele 3 implementari, varianta BLAS a fost cea mai rapida, urmata de
